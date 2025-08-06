@@ -3,9 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo List</title>
+    <title>To Do List</title>
   </head>
   <body>
-    <h1>Todo List</h1>
+    <h1>To Do List</h1>
+
+    <form>
+      <div class="add-task">
+        <label for="add-task">Add task list:</label>
+        <input type="text" id="add-task" name="add-task" />
+
+        <button type="submit">Add</button>
+      </div>
+    </form>
+
+    <h2>Task List</h2>
+    <div class="task-list">
+      <ul>
+        <li>
+          <input type="checkbox" id="task1" name="task1" />
+          <label for="task1">Tugas Pertama</label>
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
+        </li>
+        <li>
+          <input type="checkbox" id="task2" name="task2" />
+          <label for="task2">Tugas Kedua</label>
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
+        </li>
+        <li>
+          <input type="checkbox" id="task3" name="task3" />
+          <label for="task3">Tugas Ketiga</label>
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
