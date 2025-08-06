@@ -13,6 +13,10 @@ module.exports = {
   devServer: {
     static: path.join(__dirname, "dist"),
     open: true,
+    hot: true,
+    port: 3000,
+    watchFiles: ["src/**/*"],
+    liveReload: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
