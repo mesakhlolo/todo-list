@@ -10,6 +10,10 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
+  devServer: {
+    static: path.join(__dirname, "dist"),
+    open: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
