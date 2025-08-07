@@ -6,39 +6,58 @@
     <title>To Do List</title>
   </head>
   <body>
-    <h1>To Do List</h1>
+    <!-- Header -->
+    <header>
+      <h1>To Do List</h1>
+    </header>
 
-    <form>
-      <div class="add-task">
-        <label for="add-task">Add task list:</label>
-        <input type="text" id="add-task" name="add-task" />
+    <!-- Main -->
+    <main>
+      <!-- Add Task -->
+      <section class="add-task-section">
+        <form class="add-task-form">
+          <label for="add-task-input">Add task:</label>
+          <input type="text" id="add-task-input" name="add-task-input" />
+          <button type="submit">Add</button>
+        </form>
+      </section>
 
-        <button type="submit">Add</button>
-      </div>
-    </form>
-
-    <h2>Task List</h2>
-    <div class="task-list">
-      <ul>
-        <li>
-          <input type="checkbox" id="task1" name="task1" />
-          <label for="task1">Tugas Pertama</label>
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
-        </li>
-        <li>
-          <input type="checkbox" id="task2" name="task2" />
-          <label for="task2">Tugas Kedua</label>
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
-        </li>
-        <li>
-          <input type="checkbox" id="task3" name="task3" />
-          <label for="task3">Tugas Ketiga</label>
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
-        </li>
-      </ul>
-    </div>
+      <!-- Task List -->
+      <section class="task-list-section">
+        <h2>Task List</h2>
+        <ul class="task-list">
+          <li class="task-item">
+            <div class="task-main">
+              <input type="checkbox" id="task1" label="task1" />
+              <label for="task1">Tugas Pertama</label>
+            </div>
+            <div class="task-actions">
+              <button type="button" class="edit-btn">Edit</button>
+              <button type="button" class="delete-btn">Delete</button>
+            </div>
+          </li>
+          <li class="task-item">
+            <div class="task-main">
+              <input type="checkbox" id="task2" label="task2" />
+              <label for="task2">Tugas Kedua</label>
+            </div>
+            <div class="task-actions">
+              <button type="button" class="edit-btn">Edit</button>
+              <button type="button" class="delete-btn">Delete</button>
+            </div>
+          </li>
+          <li class="task-item">
+            <div class="task-main">
+              <input type="checkbox" id="task3" label="task3" />
+              <label for="task3">Tugas Ketiga</label>
+            </div>
+            <div class="task-actions">
+              <button type="button" class="edit-btn">Edit</button>
+              <button type="button" class="delete-btn">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
   </body>
 </html>
