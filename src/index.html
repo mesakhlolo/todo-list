@@ -16,8 +16,25 @@
       <!-- Add Task -->
       <section class="add-task-section">
         <form class="add-task-form">
-          <label for="add-task-input">Add task:</label>
-          <input type="text" id="add-task-input" name="add-task-input" />
+          <label for="add-task-title">Task Title:</label>
+          <input type="text" name="title" id="add-task-title" />
+
+          <label for="add-task-description">Task Description:</label>
+          <textarea name="description" id="add-task-description"></textarea>
+
+          <label for="add-task-date">Task Date:</label>
+          <input type="date" name="date" id="add-task-date" />
+
+          <div class="priority">
+            <h3>Priority:</h3>
+            <input type="radio" id="high" name="priority" value="high" />
+            <label for="high">High</label>
+            <input type="radio" id="medium" name="priority" value="medium" />
+            <label for="medium">Medium</label>
+            <input type="radio" id="low" name="priority" value="low" />
+            <label for="low">Low</label>
+          </div>
+
           <button type="submit">Add</button>
         </form>
       </section>
@@ -28,8 +45,11 @@
         <ul class="task-list">
           <li class="task-item">
             <div class="task-main">
-              <input type="checkbox" id="task1" label="task1" />
-              <label for="task1">Tugas Pertama</label>
+              <input type="checkbox" />
+              <label>Todo Pertama</label>
+              <p>Some description for todo</p>
+              <p>Due: 17-08-2025</p>
+              <p>Priority: High</p>
             </div>
             <div class="task-actions">
               <button type="button" class="edit-btn">Edit</button>
