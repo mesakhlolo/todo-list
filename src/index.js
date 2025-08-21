@@ -8,7 +8,25 @@ const dateInput = document.querySelector("#add-task-date");
 let projects = [
   {
     name: "Default",
-    todos: [],
+    todos: [
+      {
+        title: "Todo Pertama di Default Project",
+        description: "Some description for todo",
+        dueDate: "2025-08-21",
+        priority: "High",
+      },
+    ],
+  },
+  {
+    name: "Learning",
+    todos: [
+      {
+        title: "Todo Pertama di Learning Project",
+        description: "Some description for todo",
+        dueDate: "2025-08-25",
+        priority: "Medium",
+      },
+    ],
   },
 ];
 
@@ -26,7 +44,7 @@ function createProjects(name) {
 
   // menambahkan project baru
   projects.push({ name: name, todos: [] });
-  renderProjects();
+  renderProjects(name);
 }
 
 // renderProjects
@@ -113,5 +131,52 @@ addTaskForm.addEventListener("submit", function (event) {
   taskInput.focus();
 });
 
+let selectedProject = "Default";
 // render todos
-function renderTodos(projectsName) {}
+function renderTodos(projectsName) {
+  // cari project berdasarkan nama]
+  const project = projects.find(function (proj) {
+    return proj.name === projectsName;
+  });
+
+  // jika project tidak ditemukan
+  if (!project) {
+    alert("Project not found!");
+    return;
+  }
+
+  // kosongkan list task
+  taskList.innerHTML = "";
+
+  // render todos berdasarkan project yg dipilih
+  project.todos.forEach(function (todo) {
+    const taskItem = document.createElement("li");
+    taskItem.classList.add("task-item");
+
+    taskItem.innerHTML = `
+      <div class="task-main">
+        <input type="checkbox" />
+        <label>${todo.title}</label>
+        <p>${todo.description}</p>
+        <p>Due: ${todo.dueDate}</p>
+        <p>Priority: ${todo.priority}</p>
+      </div>
+      <div class="task-actions">
+        <button type="button" class="edit-btn">Edit</button>
+        <button type="button" class="delete-btn">Delete</button>
+      </div>
+    `;
+
+    taskList.appendChild(taskItem);
+  });
+}
+
+// cek project apa yg diselect user
+document
+  .querySelector(".project-list")
+  .addEventListener("click", function (event) {
+    if (event.target.classList.contains("list-project")) {
+      selectedProject = event.target.textContent;
+      renderTodos(selectedProject);
+    }
+  });
