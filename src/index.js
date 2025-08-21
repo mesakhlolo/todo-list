@@ -1,68 +1,32 @@
+import {
+  createProjects,
+  createTodo,
+  getProjectByName,
+  getProjects,
+} from "./modules/projectManager.js";
+
 const addTaskForm = document.querySelector(".add-task-form");
 const taskInput = addTaskForm.querySelector("#add-task-title");
 const taskList = document.querySelector(".task-list");
 const descriptionInput = document.querySelector("#add-task-description");
 const dateInput = document.querySelector("#add-task-date");
 
-// struktur array untuk projects
-let projects = [
-  {
-    name: "Default",
-    todos: [
-      {
-        title: "Todo Pertama di Default Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-21",
-        priority: "High",
-      },
-    ],
-  },
-  {
-    name: "Learning",
-    todos: [
-      {
-        title: "Todo Pertama di Learning Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-25",
-        priority: "Medium",
-      },
-    ],
-  },
-];
-
-// Create New Project
-function createProjects(name) {
-  // check project name apa sudah ada
-  if (
-    projects.some(function (project) {
-      return project.name === name;
-    })
-  ) {
-    alert("A project with this name already exists!");
-    return;
-  }
-
-  // menambahkan project baru
-  projects.push({ name: name, todos: [] });
-  renderProjects(name);
-}
-
-// renderProjects
+// render list of projects
 function renderProjects() {
   const projectsList = document.querySelector(".project-list");
   projectsList.innerHTML = "";
 
-  projects.forEach(function (project) {
+  getProjects().forEach(function (project) {
     const projectItem = document.createElement("li");
     projectItem.classList.add("list-project");
     projectItem.textContent = project.name;
-    projectItem.dataset = project.name;
+    projectItem.dataset.name = project.name;
 
     projectsList.appendChild(projectItem);
   });
 }
 
-// Add New Project
+// add new project
 const addProjectBtn = document.querySelector(".add-project-btn");
 addProjectBtn.addEventListener("click", function () {
   const projectName = prompt("Input name for a new project:");
@@ -71,18 +35,10 @@ addProjectBtn.addEventListener("click", function () {
     alert("Project name can not be empty!");
     return;
   }
-  createProjects(projectName);
-});
 
-// Create New Todo
-function createTodo(title, description, dueDate, priority) {
-  return {
-    title,
-    description,
-    dueDate,
-    priority,
-  };
-}
+  createProjects(projectName);
+  renderProjects();
+});
 
 // Add new todo
 addTaskForm.addEventListener("submit", function (event) {
@@ -132,12 +88,10 @@ addTaskForm.addEventListener("submit", function (event) {
 });
 
 let selectedProject = "Default";
-// render todos
-function renderTodos(projectsName) {
-  // cari project berdasarkan nama]
-  const project = projects.find(function (proj) {
-    return proj.name === projectsName;
-  });
+// render todos sesuai project yg dipilih
+function renderTodos(projectName) {
+  // cek project ada atau tidak getProjectByName()
+  const project = getProjectByName(projectName);
 
   // jika project tidak ditemukan
   if (!project) {
