@@ -41,12 +41,13 @@ function getProjectByName(name) {
     return project.name === name;
   });
 }
+
 // create a new project
 function createProjects(name) {
   // check the project name to see if it already exists
   if (
     projects.some(function (project) {
-      project.name === name;
+      return project.name === name;
     })
   ) {
     alert("A project with this name already exist!");
