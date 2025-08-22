@@ -1,3 +1,5 @@
+import "./css/styles.css";
+
 import { addNewProject } from "./modules/projectManager.js";
 import { addNewTodo, createTodo } from "./modules/todoManager.js";
 import { renderTodos } from "./modules/domRenderer.js";

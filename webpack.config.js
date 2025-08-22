@@ -18,6 +18,14 @@ module.exports = {
     watchFiles: ["src/**/*"],
     liveReload: true,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
