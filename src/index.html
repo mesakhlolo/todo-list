@@ -12,51 +12,59 @@
     </header>
 
     <!-- Main -->
-    <main>
-      <section class="project-sidebar">
+    <main class="main-layout">
+      <!-- Sidebar -->
+      <div class="project-sidebar">
         <h2>Projects</h2>
         <ul class="project-list">
           <li class="list-project" data-project="Default">Default</li>
         </ul>
-        <button class="add-project-btn">Add New Project</button>
-      </section>
+        <button class="add-project-btn">+ Add New Project</button>
+      </div>
 
-      <!-- Add Task -->
-      <section class="add-task-section">
+      <!-- Content -->
+      <section class="content">
+        <h1 class="current-project-title">Default Project</h1>
+        <div class="task-list-section">
+          <ul class="task-list"></ul>
+        </div>
+        <button>+ Add New Task</button>
+
+        <!-- form add new todo -->
         <form class="add-task-form">
-          <label for="add-task-title">Task Title:</label>
-          <input type="text" name="title" id="add-task-title" />
+          <label for="add-task-title">Task Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="add-task-title"
+            placeholder="Enter task title"
+          />
 
-          <label for="add-task-description">Task Description:</label>
-          <textarea name="description" id="add-task-description"></textarea>
+          <label for="add-task-description">Description: </label>
+          <textarea
+            type="text"
+            name="title"
+            id="add-task-description"
+            placeholder="Enter task description"
+          ></textarea>
 
-          <label for="add-task-date">Task Date:</label>
-          <input type="date" name="date" id="add-task-date" />
+          <label for="add-task-date">Due Date: </label>
+          <input type="date" name="dueDate" id="add-task-date" />
 
-          <div class="priority">
-            <h3>Priority:</h3>
-            <input
-              type="radio"
-              id="high"
-              name="priority"
-              value="High"
-              required
-            />
-            <label for="high">High</label>
-            <input type="radio" id="medium" name="priority" value="Medium" />
-            <label for="medium">Medium</label>
-            <input type="radio" id="low" name="priority" value="Low" />
+          <label for="add-task-priority">Priority: </label>
+          <div>
+            <input type="radio" id="low" name="priority" value="low" required />
             <label for="low">Low</label>
+
+            <input type="radio" id="medium" name="priority" value="medium" />
+            <label for="medium">Medium</label>
+
+            <input type="radio" id="high" name="priority" value="high" />
+            <label for="high">High</label>
           </div>
 
-          <button type="submit">Add</button>
+          <button type="submit">Add Task</button>
         </form>
-      </section>
-
-      <!-- Task List -->
-      <section class="task-list-section">
-        <h2 id="current-project-title">Default Project Todo</h2>
-        <ul class="task-list"></ul>
       </section>
     </main>
   </body>
