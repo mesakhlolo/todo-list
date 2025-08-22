@@ -69,6 +69,17 @@ function createProjects(name) {
   projects.push({ name: name, todos: [] });
 }
 
+// add new project
+function addNewProject(projectName) {
+  if (!projectName.trim()) {
+    alert("Project name can not be empty!");
+    return;
+  }
+
+  createProjects(projectName);
+  renderProjects();
+}
+
 // render project list in the sidebar
 function renderProjects() {
   const projectsList = document.querySelector(".project-list");
@@ -85,4 +96,10 @@ function renderProjects() {
   });
 }
 
-export { getProjects, getProjectByName, createProjects, renderProjects };
+export {
+  getProjects,
+  getProjectByName,
+  createProjects,
+  renderProjects,
+  addNewProject,
+};

@@ -1,9 +1,4 @@
-import {
-  createProjects,
-  getProjectByName,
-  getProjects,
-  renderProjects,
-} from "./modules/projectManager.js";
+import { addNewProject, getProjectByName } from "./modules/projectManager.js";
 import { createTodo } from "./modules/todoManager.js";
 
 const addTaskForm = document.querySelector(".add-task-form");
@@ -11,19 +6,14 @@ const taskInput = addTaskForm.querySelector("#add-task-title");
 const taskList = document.querySelector(".task-list");
 const descriptionInput = document.querySelector("#add-task-description");
 const dateInput = document.querySelector("#add-task-date");
-
-// add new project
 const addProjectBtn = document.querySelector(".add-project-btn");
+
+// user add a new project
 addProjectBtn.addEventListener("click", function () {
   const projectName = prompt("Input name for a new project:");
   if (projectName === null) return;
-  if (!projectName.trim()) {
-    alert("Project name can not be empty!");
-    return;
-  }
 
-  createProjects(projectName);
-  renderProjects();
+  addNewProject(projectName);
 });
 
 // Add new todo
