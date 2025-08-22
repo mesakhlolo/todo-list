@@ -1,3 +1,5 @@
+import { renderProjects } from "./domRenderer";
+
 // array structure for projects
 const projects = [
   {
@@ -80,26 +82,4 @@ function addNewProject(projectName) {
   renderProjects();
 }
 
-// render project list in the sidebar
-function renderProjects() {
-  const projectsList = document.querySelector(".project-list");
-  projectsList.innerHTML = "";
-
-  projects.forEach(function (project) {
-    const projectItem = document.createElement("li");
-
-    projectItem.classList.add("list-project");
-    projectItem.textContent = project.name;
-    projectItem.dataset.name = project.name;
-
-    projectsList.appendChild(projectItem);
-  });
-}
-
-export {
-  getProjects,
-  getProjectByName,
-  createProjects,
-  renderProjects,
-  addNewProject,
-};
+export { getProjects, getProjectByName, addNewProject };
