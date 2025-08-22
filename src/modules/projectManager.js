@@ -1,5 +1,5 @@
 // array structure for projects
-let projects = [
+const projects = [
   {
     name: "Default",
     todos: [
@@ -7,6 +7,17 @@ let projects = [
         title: "Todo Pertama di Default Project",
         description: "Some description for todo",
         dueDate: "2025-08-28",
+        priority: "High",
+      },
+    ],
+  },
+  {
+    name: "Chores",
+    todos: [
+      {
+        title: "Todo Pertama di Chores Project",
+        description: "Some description for todo",
+        dueDate: "2025-08-27",
         priority: "High",
       },
     ],
@@ -58,14 +69,20 @@ function createProjects(name) {
   projects.push({ name: name, todos: [] });
 }
 
-// create a new todo using factory function
-function createTodo(title, description, dueDate, priority) {
-  return {
-    title,
-    description,
-    dueDate,
-    priority,
-  };
+// render project list in the sidebar
+function renderProjects() {
+  const projectsList = document.querySelector(".project-list");
+  projectsList.innerHTML = "";
+
+  projects.forEach(function (project) {
+    const projectItem = document.createElement("li");
+
+    projectItem.classList.add("list-project");
+    projectItem.textContent = project.name;
+    projectItem.dataset.name = project.name;
+
+    projectsList.appendChild(projectItem);
+  });
 }
 
-export { createProjects, createTodo, getProjects, getProjectByName };
+export { getProjects, getProjectByName, createProjects, renderProjects };

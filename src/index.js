@@ -1,30 +1,16 @@
 import {
   createProjects,
-  createTodo,
   getProjectByName,
   getProjects,
+  renderProjects,
 } from "./modules/projectManager.js";
+import { createTodo } from "./modules/todoManager.js";
 
 const addTaskForm = document.querySelector(".add-task-form");
 const taskInput = addTaskForm.querySelector("#add-task-title");
 const taskList = document.querySelector(".task-list");
 const descriptionInput = document.querySelector("#add-task-description");
 const dateInput = document.querySelector("#add-task-date");
-
-// render list of projects
-function renderProjects() {
-  const projectsList = document.querySelector(".project-list");
-  projectsList.innerHTML = "";
-
-  getProjects().forEach(function (project) {
-    const projectItem = document.createElement("li");
-    projectItem.classList.add("list-project");
-    projectItem.textContent = project.name;
-    projectItem.dataset.name = project.name;
-
-    projectsList.appendChild(projectItem);
-  });
-}
 
 // add new project
 const addProjectBtn = document.querySelector(".add-project-btn");
