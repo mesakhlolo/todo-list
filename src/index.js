@@ -2,23 +2,50 @@ import "./css/styles.css";
 
 import { addNewProject } from "./modules/projectManager.js";
 import { addNewTodo, createTodo } from "./modules/todoManager.js";
-import { renderTodos } from "./modules/domRenderer.js";
+import { renderProjects, renderTodos } from "./modules/domRenderer.js";
 
 const addTaskForm = document.querySelector(".add-task-form");
 const taskInput = addTaskForm.querySelector("#add-task-title");
 const descriptionInput = document.querySelector("#add-task-description");
 const dateInput = document.querySelector("#add-task-date");
+
 const addProjectBtn = document.querySelector(".add-project-btn");
+const projectForm = document.querySelector(".add-project-form");
+const cancelProjectForm = document.querySelector(".cancel-project-form");
 
 // default selected project
 let selectedProject = "Default";
 
-// user add a new project
+// flow ketika user add a new project
+// show new project form
 addProjectBtn.addEventListener("click", function () {
-  const projectName = prompt("Input name for a new project:");
-  if (projectName === null) return;
+  // tampilkan form
+  projectForm.classList.add("show");
+});
+// cancel new project form
+cancelProjectForm.addEventListener("click", function () {
+  // sembunyikan form dan reset
+  projectForm.reset();
+  projectForm.classList.remove("show");
+});
 
-  addNewProject(projectName);
+// submit new project form
+projectForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  // Ambil nilai input
+  const newProject = document.querySelector("#add-project-title").value;
+  if (!newProject) {
+    alert("Project name cannot be empty!");
+    return;
+  }
+
+  // tambahkan dan render elemen li baru
+  addNewProject(newProject);
+  renderProjects(newProject);
+
+  // Sembunyikan form dan reset
+  projectForm.reset();
+  projectForm.classList.remove("show");
 });
 
 // user add a new todo

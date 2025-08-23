@@ -82,10 +82,14 @@ header h1 {
 
 /* Add Project Form */
 .add-project-form {
+  display: none;
   background-color: #f8f9fa;
   padding: 1rem;
   border-radius: 6px;
   margin-top: 0.5rem;
+}
+.add-project-form.show {
+  display: block;
 }
 
 .add-project-form label {
