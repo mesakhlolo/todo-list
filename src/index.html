@@ -20,13 +20,40 @@
           <li class="list-project" data-project="Default">Default</li>
         </ul>
         <button class="add-project-btn">+ Add New Project</button>
+        <!-- form add new project -->
+        <form class="add-project-form">
+          <label for="add-project-title">Project Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="add-project-title"
+            placeholder="Enter project title"
+          />
+
+          <button type="button">Cancel</button>
+          <button type="submit">Add Project</button>
+        </form>
       </div>
 
       <!-- Content -->
       <section class="content">
         <h1 class="current-project-title">Default Project</h1>
         <div class="task-list-section">
-          <ul class="task-list"></ul>
+          <ul class="task-list">
+            <li class="task-item">
+              <div class="task-main">
+                <input type="checkbox" id="task-1" />
+                <label for="task-1">First Todo in Default Project</label>
+                <p>Some description for todo</p>
+                <p>Due: 2025-08-24</p>
+                <p>Priority: Medium</p>
+              </div>
+              <div class="task-actions">
+                <button type="button" class="edit-btn">Edit</button>
+                <button type="button" class="delete-btn">Delete</button>
+              </div>
+            </li>
+          </ul>
         </div>
         <button>+ Add New Task</button>
 
@@ -63,6 +90,7 @@
             <label for="high">High</label>
           </div>
 
+          <button type="button">Cancel</button>
           <button type="submit">Add Task</button>
         </form>
       </section>
