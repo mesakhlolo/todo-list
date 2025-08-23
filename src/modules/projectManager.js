@@ -1,5 +1,3 @@
-import { renderProjects } from "./domRenderer";
-
 // array structure for projects
 const projects = [
   {
@@ -79,7 +77,6 @@ function addNewProject(projectName) {
   }
 
   createProjects(projectName);
-  renderProjects();
 }
 
 export { getProjects, getProjectByName, addNewProject };
