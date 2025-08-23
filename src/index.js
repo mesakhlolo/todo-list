@@ -2,7 +2,7 @@ import "./css/styles.css";
 
 import { addNewProject } from "./modules/projectManager.js";
 import { addNewTodo, createTodo } from "./modules/todoManager.js";
-import { renderProjects, renderTodos } from "./modules/domRenderer.js";
+import { renderTodos } from "./modules/domRenderer.js";
 
 const addTaskForm = document.querySelector(".add-task-form");
 const taskInput = addTaskForm.querySelector("#add-task-title");
@@ -41,7 +41,6 @@ projectForm.addEventListener("submit", function (event) {
 
   // tambahkan dan render elemen li baru
   addNewProject(newProject);
-  renderProjects(newProject);
 
   // Sembunyikan form dan reset
   projectForm.reset();
