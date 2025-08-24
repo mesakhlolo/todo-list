@@ -79,6 +79,9 @@ header h1 {
 .add-project-btn:hover {
   background-color: #1e7e34;
 }
+.add-project-btn.hide {
+  display: none;
+}
 
 /* Add Project Form */
 .add-project-form {

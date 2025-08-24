@@ -19,11 +19,15 @@ let selectedProject = "Default";
 // flow ketika user add a new project
 // show new project form
 addProjectBtn.addEventListener("click", function () {
+  // hide add new project button
+  addProjectBtn.classList.add("hide");
   // tampilkan form
   projectForm.classList.add("show");
 });
 // cancel new project form
 cancelProjectForm.addEventListener("click", function () {
+  // tampilkan add new project button
+  addProjectBtn.classList.remove("hide");
   // sembunyikan form dan reset
   projectForm.reset();
   projectForm.classList.remove("show");
@@ -46,6 +50,9 @@ projectForm.addEventListener("submit", function (event) {
   // Sembunyikan form dan reset
   projectForm.reset();
   projectForm.classList.remove("show");
+
+  // tampilkan add new project button
+  addProjectBtn.classList.remove("hide");
 });
 
 // user add a new todo
