@@ -13,6 +13,9 @@ const addProjectBtn = document.querySelector(".add-project-btn");
 const projectForm = document.querySelector(".add-project-form");
 const cancelProjectForm = document.querySelector(".cancel-project-form");
 
+const addTaskBtn = document.querySelector(".add-task-btn");
+const cancelTaskForm = document.querySelector(".cancel-task-form");
+
 // default selected project
 let selectedProject = "Default";
 
@@ -55,7 +58,24 @@ projectForm.addEventListener("submit", function (event) {
   addProjectBtn.classList.remove("hide");
 });
 
-// user add a new todo
+// flow ketika user add new todos / task
+addTaskBtn.addEventListener("click", function () {
+  // hide add task button
+  addTaskBtn.classList.add("hide");
+  // tampilkan form
+  addTaskForm.classList.add("show");
+});
+// cancel task fom
+cancelTaskForm.addEventListener("click", function () {
+  // tampilkan add new task button
+  addTaskBtn.classList.remove("hide");
+
+  // sembunyikan form dan reset
+  addTaskForm.classList.remove("show");
+  addTaskForm.reset();
+});
+
+// user add a new todo in form
 addTaskForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -75,6 +95,12 @@ addTaskForm.addEventListener("submit", function (event) {
   addNewTodo(selectedProject, todo);
 
   renderTodos(selectedProject);
+
+  // tampilkan add new task button
+  addTaskBtn.classList.remove("hide");
+
+  // sembunyikan form dan reset
+  addTaskForm.classList.remove("show");
   addTaskForm.reset();
 });
 

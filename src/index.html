@@ -39,23 +39,9 @@
       <section class="content">
         <h1 class="current-project-title">Default Project</h1>
         <div class="task-list-section">
-          <ul class="task-list">
-            <li class="task-item">
-              <div class="task-main">
-                <input type="checkbox" id="task-1" />
-                <label for="task-1">First Todo in Default Project</label>
-                <p>Some description for todo</p>
-                <p>Due: 2025-08-24</p>
-                <p>Priority: Medium</p>
-              </div>
-              <div class="task-actions">
-                <button type="button" class="edit-btn">Edit</button>
-                <button type="button" class="delete-btn">Delete</button>
-              </div>
-            </li>
-          </ul>
+          <ul class="task-list"></ul>
         </div>
-        <button>+ Add New Task</button>
+        <button class="add-task-btn">+ Add New Task</button>
 
         <!-- form add new todo -->
         <form class="add-task-form">
@@ -65,6 +51,7 @@
             name="title"
             id="add-task-title"
             placeholder="Enter task title"
+            required
           />
 
           <label for="add-task-description">Description: </label>
@@ -76,21 +63,21 @@
           ></textarea>
 
           <label for="add-task-date">Due Date: </label>
-          <input type="date" name="dueDate" id="add-task-date" />
+          <input type="date" name="dueDate" id="add-task-date" required />
 
           <label for="add-task-priority">Priority: </label>
           <div>
-            <input type="radio" id="low" name="priority" value="low" required />
+            <input type="radio" id="low" name="priority" value="Low" required />
             <label for="low">Low</label>
 
-            <input type="radio" id="medium" name="priority" value="medium" />
+            <input type="radio" id="medium" name="priority" value="Medium" />
             <label for="medium">Medium</label>
 
-            <input type="radio" id="high" name="priority" value="high" />
+            <input type="radio" id="high" name="priority" value="High" />
             <label for="high">High</label>
           </div>
 
-          <button type="button">Cancel</button>
+          <button type="button" class="cancel-task-form">Cancel</button>
           <button type="submit">Add Task</button>
         </form>
       </section>

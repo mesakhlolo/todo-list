@@ -252,6 +252,14 @@ header h1 {
   padding: 1rem;
   border-radius: 6px;
   margin-top: 0.5rem;
+  display: none;
+}
+
+.add-task-form.show {
+  display: block;
+}
+.add-task-btn.hide {
+  display: none;
 }
 
 .add-task-form label {
