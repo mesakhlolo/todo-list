@@ -15,6 +15,7 @@ function addNewTodo(projectName, todo) {
   const project = getProjectByName(projectName);
   if (!project) {
     console.error("Project not found!");
+    return;
   }
 
   project.todos.push(todo);
