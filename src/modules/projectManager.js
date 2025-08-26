@@ -23,8 +23,8 @@ function getProjectByName(name) {
   });
 }
 
-// create a new project
-function createProjects(name) {
+// create a new project and add it to the list
+function addNewProject(name) {
   // check the project name to see if it already exists
   if (
     projects.some(function (project) {
@@ -32,21 +32,12 @@ function createProjects(name) {
     })
   ) {
     alert("A project with this name already exist!");
-    return;
+    return false;
   }
 
   // add new project to array
   projects.push({ name: name, todos: [] });
-}
-
-// add new project
-function addNewProject(projectName) {
-  if (!projectName.trim()) {
-    alert("Project name can not be empty!");
-    return;
-  }
-
-  createProjects(projectName);
+  return true;
 }
 
 // set projects

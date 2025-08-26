@@ -48,13 +48,17 @@ function handleProjectFormSubmit(event) {
     return;
   }
 
-  addNewProject(newProjectName);
-  setActiveProjectName(newProjectName);
-  updateUI();
+  const wasProjectAdded = addNewProject(newProjectName);
 
-  projectForm.reset();
-  projectForm.classList.remove("show");
-  addProjectBtn.classList.remove("hide");
+  // Only update UI if the project was actually added
+  if (wasProjectAdded) {
+    setActiveProjectName(newProjectName);
+    updateUI();
+
+    projectForm.reset();
+    projectForm.classList.remove("show");
+    addProjectBtn.classList.remove("hide");
+  }
 }
 
 function handleTaskFormSubmit(event) {
