@@ -1,45 +1,5 @@
 // array structure for projects
-const projects = [
-  {
-    name: "Default",
-    todos: [
-      {
-        title: "Todo Pertama di Default Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-28",
-        priority: "High",
-      },
-    ],
-  },
-  {
-    name: "Chores",
-    todos: [
-      {
-        title: "Todo Pertama di Chores Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-27",
-        priority: "High",
-      },
-    ],
-  },
-  {
-    name: "Learning",
-    todos: [
-      {
-        title: "Todo Pertama di Learning Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-29",
-        priority: "Medium",
-      },
-      {
-        title: "Todo Kedua di Learning Project",
-        description: "Some description for todo",
-        dueDate: "2025-08-30",
-        priority: "Low",
-      },
-    ],
-  },
-];
+const projects = [];
 
 // get all projects array
 function getProjects() {
@@ -79,4 +39,15 @@ function addNewProject(projectName) {
   createProjects(projectName);
 }
 
-export { getProjects, getProjectByName, addNewProject };
+// set projects
+function setProjects(newProjectsData) {
+  // kosongkan array
+  projects.length = 0;
+
+  // isi dengan data baru
+  newProjectsData.forEach(function (project) {
+    projects.push(project);
+  });
+}
+
+export { getProjects, getProjectByName, addNewProject, setProjects };

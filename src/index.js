@@ -1,8 +1,9 @@
 import "./css/styles.css";
 
-import { addNewProject } from "./modules/projectManager.js";
+import { addNewProject, setProjects } from "./modules/projectManager.js";
 import { addNewTodo, createTodo } from "./modules/todoManager.js";
 import { renderProjects, renderTodos } from "./modules/domRenderer.js";
+import { loadProjects, saveProjects } from "./modules/localStorage.js";
 
 const addTaskForm = document.querySelector(".add-task-form");
 const taskInput = addTaskForm.querySelector("#add-task-title");
@@ -18,6 +19,19 @@ const cancelTaskForm = document.querySelector(".cancel-task-form");
 
 // default selected project
 let selectedProject = "Default";
+
+// load data dari localStorage
+const dataFromStorage = loadProjects();
+if (dataFromStorage && dataFromStorage.length > 0) {
+  setProjects(dataFromStorage);
+} else {
+  addNewProject("Default");
+  saveProjects();
+}
+
+// render awal saat aplikasi pertama kali dimuat
+renderProjects();
+renderTodos(selectedProject);
 
 // flow ketika user add a new project
 // show new project form
@@ -46,8 +60,9 @@ projectForm.addEventListener("submit", function (event) {
     return;
   }
 
-  // tambahkan dan render elemen li baru
+  // tambahkan project, simpan local, render
   addNewProject(newProject);
+  saveProjects();
   renderProjects(newProject);
 
   // Sembunyikan form dan reset
@@ -92,8 +107,10 @@ addTaskForm.addEventListener("submit", function (event) {
   }
 
   const todo = createTodo(title, description, dueDate, priority);
-  addNewTodo(selectedProject, todo);
 
+  // tambahkan todo, simpan di local, dan render
+  addNewTodo(selectedProject, todo);
+  saveProjects();
   renderTodos(selectedProject);
 
   // tampilkan add new task button
