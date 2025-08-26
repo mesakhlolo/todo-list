@@ -1,5 +1,18 @@
 // array structure for projects
-const projects = [];
+let projects = [
+  {
+    name: "Default",
+    todos: [
+      {
+        title: "Build a To-Do App",
+        description:
+          "Use HTML, CSS, and JavaScript to build a functional to-do list application.",
+        dueDate: "2025-8-30",
+        priority: "High",
+      },
+    ],
+  },
+];
 let activeProjectName = "Default";
 
 // get all projects array
