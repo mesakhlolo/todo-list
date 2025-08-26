@@ -1,7 +1,5 @@
-import { getProjects } from "./projectManager";
-
-function saveProjects() {
-  localStorage.setItem("projects", JSON.stringify(getProjects()));
+function saveProjects(projects) {
+  localStorage.setItem("projects", JSON.stringify(projects));
 }
 
 function loadProjects() {

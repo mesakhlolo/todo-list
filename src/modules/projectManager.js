@@ -1,9 +1,19 @@
 // array structure for projects
 const projects = [];
+let activeProjectName = "Default";
 
 // get all projects array
 function getProjects() {
   return projects;
+}
+
+// get active project name
+function getActiveProjectName() {
+  return activeProjectName;
+}
+// set active project name
+function setActiveProjectName(name) {
+  activeProjectName = name;
 }
 
 // get project by name
@@ -50,4 +60,11 @@ function setProjects(newProjectsData) {
   });
 }
 
-export { getProjects, getProjectByName, addNewProject, setProjects };
+export {
+  getProjects,
+  getProjectByName,
+  addNewProject,
+  setProjects,
+  getActiveProjectName,
+  setActiveProjectName,
+};

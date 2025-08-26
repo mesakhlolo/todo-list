@@ -1,11 +1,9 @@
-import { getProjectByName, getProjects } from "./projectManager";
-
 // render project list in the sidebar
-function renderProjects() {
+function renderProjects(projects) {
   const projectsList = document.querySelector(".project-list");
   projectsList.innerHTML = "";
 
-  getProjects().forEach(function (project) {
+  projects.forEach(function (project) {
     const projectItem = document.createElement("li");
 
     projectItem.classList.add("list-project");
@@ -18,16 +16,23 @@ function renderProjects() {
 
 // render todos
 function renderTodos(projectName) {
-  const project = getProjectByName(projectName);
-  if (!project) {
-    alert("Project not found!");
-    return;
+  if (!projectName) {
+    document.querySelector(
+      ".task-list"
+    ).innerHTML = `<li>Select a project to view its task</li>`;
+    document.querySelector(
+      ".current-project-title"
+    ).textContent = `Unknown ${projectName.name}`;
   }
+
+  document.querySelector(
+    ".current-project-title"
+  ).textContent = `${projectName.name} Project Task`;
 
   const taskList = document.querySelector(".task-list");
   taskList.innerHTML = "";
 
-  project.todos.forEach(function (todo) {
+  projectName.todos.forEach(function (todo) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("task-item");
 
