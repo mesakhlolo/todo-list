@@ -64,6 +64,11 @@ header h1 {
   background-color: #e9ecef;
 }
 
+.list-project.active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
 .add-project-btn {
   width: 100%;
   padding: 0.6rem;
@@ -329,6 +334,16 @@ header h1 {
 
 .add-task-form button[type="button"]:hover {
   background-color: #c82333;
+}
+
+.task-project-name {
+  font-size: 0.8em;
+  color: #555;
+  margin-top: 5px;
+}
+
+.project-selection-group {
+  margin-bottom: 0.8rem;
 }
 
 /* Responsive */

@@ -1,3 +1,5 @@
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 import "./css/styles.css";
 
 import {
@@ -15,8 +17,8 @@ import { loadProjects, saveProjects } from "./modules/localStorage.js";
 // DOM Selections
 const taskForm = document.querySelector(".add-task-form");
 const taskInput = taskForm.querySelector("#add-task-title");
-const descriptionInput = document.querySelector("#add-task-description");
-const dateInput = document.querySelector("#add-task-date");
+const descriptionInput = taskForm.querySelector("#add-task-description");
+const dateInput = taskForm.querySelector("#add-task-date");
 
 const addProjectBtn = document.querySelector(".add-project-btn");
 const projectForm = document.querySelector(".add-project-form");
@@ -29,9 +31,10 @@ const projectListContainer = document.querySelector(".project-list");
 // UI Update Function
 function updateUI() {
   const allProjects = getProjects();
-  const activeProject = getProjectByName(getActiveProjectName());
+  const activeProjectName = getActiveProjectName();
+  const activeProject = getProjectByName(activeProjectName);
 
-  renderProjects(allProjects);
+  renderProjects(allProjects, activeProjectName);
   renderTodos(activeProject);
   saveProjects(allProjects);
 }
@@ -63,6 +66,17 @@ function handleProjectFormSubmit(event) {
 
 function handleTaskFormSubmit(event) {
   event.preventDefault();
+
+  let projectName = getActiveProjectName();
+  if (projectName === "All") {
+    const projectSelect = document.querySelector("#select-project");
+    projectName = projectSelect.value;
+    if (!projectName) {
+      alert("Please select a project to add the new task to.");
+      return;
+    }
+  }
+
   const title = taskInput.value.trim();
   const description = descriptionInput.value.trim();
   const dueDate = dateInput.value;
@@ -76,7 +90,7 @@ function handleTaskFormSubmit(event) {
   }
 
   const todo = createTodo(title, description, dueDate, priority);
-  addNewTodo(getActiveProjectName(), todo);
+  addNewTodo(projectName, todo);
   updateUI();
 
   taskForm.reset();
@@ -98,6 +112,13 @@ function initialize() {
   taskForm.addEventListener("submit", handleTaskFormSubmit);
   projectListContainer.addEventListener("click", handleProjectSelection);
 
+  // Initialize flatpickr
+  flatpickr("#add-task-date", {
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+  });
+
   // UI toggles
   addProjectBtn.addEventListener("click", () => {
     addProjectBtn.classList.add("hide");
@@ -111,10 +132,39 @@ function initialize() {
   addTaskBtn.addEventListener("click", () => {
     addTaskBtn.classList.add("hide");
     taskForm.classList.add("show");
+
+    const projectSelectGroup = document.querySelector(
+      ".project-selection-group"
+    );
+    const projectSelect = document.querySelector("#select-project");
+
+    if (getActiveProjectName() === "All") {
+      projectSelectGroup.style.display = "block";
+      projectSelect.innerHTML = ""; // Clear previous options
+      const projects = getProjects();
+      if (projects.length === 0) {
+        alert(
+          "There are no projects to add tasks to. Please create a project first."
+        );
+        addTaskBtn.classList.remove("hide");
+        taskForm.classList.remove("show");
+        projectSelectGroup.style.display = "none";
+        return;
+      }
+      projects.forEach((project) => {
+        const option = document.createElement("option");
+        option.value = project.name;
+        option.textContent = project.name;
+        projectSelect.appendChild(option);
+      });
+    } else {
+      projectSelectGroup.style.display = "none";
+    }
   });
   cancelTaskForm.addEventListener("click", () => {
     addTaskBtn.classList.remove("hide");
     taskForm.classList.remove("show");
+    document.querySelector(".project-selection-group").style.display = "none";
   });
 
   // load data and render for first time
@@ -122,9 +172,9 @@ function initialize() {
   if (dataFromStorage && dataFromStorage.length > 0) {
     setProjects(dataFromStorage);
   } else {
-    addNewProject("Default");
     saveProjects();
   }
+  setActiveProjectName("All");
   updateUI();
 }
 

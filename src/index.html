@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
     <!-- Header -->
@@ -17,7 +18,7 @@
       <div class="project-sidebar">
         <h2>Projects</h2>
         <ul class="project-list">
-          <li class="list-project" data-project="Default">Default</li>
+          <li class="list-project" data-name="All">All Task</li>
         </ul>
         <button class="add-project-btn">+ Add New Project</button>
         <!-- form add new project -->
@@ -28,10 +29,12 @@
             name="title"
             id="add-project-title"
             placeholder="Enter project title"
+            required
+            minlength="3"
           />
 
-          <button type="button" class="cancel-project-form">Cancel</button>
           <button type="submit">Add Project</button>
+          <button type="button" class="cancel-project-form">Cancel</button>
         </form>
       </div>
 
@@ -52,21 +55,32 @@
             id="add-task-title"
             placeholder="Enter task title"
             required
+            minlength="3"
           />
 
-          <label for="add-task-description">Description: </label>
+          <label for="add-task-description">Description:</label>
           <textarea
-            type="text"
-            name="title"
             id="add-task-description"
-            placeholder="Enter task description"
+            name="description"
+            rows="3"
           ></textarea>
 
-          <label for="add-task-date">Due Date: </label>
-          <input type="date" name="dueDate" id="add-task-date" required />
+          <label for="add-task-date">Due Date:</label>
+          <input
+            type="text"
+            id="add-task-date"
+            name="date"
+            placeholder="Select a date"
+          />
 
-          <label for="add-task-priority">Priority: </label>
+          <div class="form-group project-selection-group" style="display: none">
+            <label for="select-project">Select Project:</label>
+            <select id="select-project" name="select-project"></select>
+          </div>
+
           <div>
+            <label>Priority:</label>
+
             <input type="radio" id="low" name="priority" value="Low" required />
             <label for="low">Low</label>
 
@@ -77,8 +91,8 @@
             <label for="high">High</label>
           </div>
 
-          <button type="button" class="cancel-task-form">Cancel</button>
           <button type="submit">Add Task</button>
+          <button type="button" class="cancel-task-form">Cancel</button>
         </form>
       </section>
     </main>

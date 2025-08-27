@@ -1,7 +1,7 @@
 // array structure for projects
 let projects = [
   {
-    name: "Default",
+    name: "Learning",
     todos: [
       {
         title: "Build a To-Do App",
@@ -13,7 +13,7 @@ let projects = [
     ],
   },
 ];
-let activeProjectName = "Default";
+let activeProjectName = "All";
 
 // get all projects array
 function getProjects() {
@@ -31,6 +31,12 @@ function setActiveProjectName(name) {
 
 // get project by name
 function getProjectByName(name) {
+  if (name === "All") {
+    const allTodos = projects.flatMap((project) =>
+      project.todos.map((todo) => ({ ...todo, projectName: project.name }))
+    );
+    return { name: "All", todos: allTodos };
+  }
   return projects.find(function (project) {
     return project.name === name;
   });
