@@ -94,6 +94,67 @@
           <button type="submit">Add Task</button>
           <button type="button" class="cancel-task-form">Cancel</button>
         </form>
+
+        <!-- form edit task -->
+        <form class="edit-task-form">
+          <h3>Edit Task</h3>
+          <label for="edit-task-title">Task Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="edit-task-title"
+            placeholder="Enter task title"
+            required
+            minlength="3"
+          />
+
+          <label for="edit-task-description">Description:</label>
+          <textarea
+            id="edit-task-description"
+            name="description"
+            rows="3"
+          ></textarea>
+
+          <label for="edit-task-date">Due Date:</label>
+          <input
+            type="text"
+            id="edit-task-date"
+            name="date"
+            placeholder="Select a date"
+          />
+
+          <div>
+            <label>Priority:</label>
+
+            <input
+              type="radio"
+              id="edit-low"
+              name="edit-priority"
+              value="Low"
+              required
+            />
+            <label for="edit-low">Low</label>
+
+            <input
+              type="radio"
+              id="edit-medium"
+              name="edit-priority"
+              value="Medium"
+            />
+            <label for="edit-medium">Medium</label>
+
+            <input
+              type="radio"
+              id="edit-high"
+              name="edit-priority"
+              value="High"
+            />
+            <label for="edit-high">High</label>
+          </div>
+
+          <button type="submit">Update Task</button>
+          <button type="button" class="cancel-edit-form">Cancel</button>
+        </form>
       </section>
     </main>
   </body>

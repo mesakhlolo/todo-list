@@ -17,6 +17,7 @@ import {
   createTodo,
   deleteTodo,
   setTodoCompleted,
+  updateTodo,
 } from "./modules/todoManager.js";
 
 // DOM Selections
@@ -24,6 +25,14 @@ const taskForm = document.querySelector(".add-task-form");
 const taskInput = taskForm.querySelector("#add-task-title");
 const descriptionInput = taskForm.querySelector("#add-task-description");
 const dateInput = taskForm.querySelector("#add-task-date");
+
+const editTaskForm = document.querySelector(".edit-task-form");
+const editTaskInput = editTaskForm.querySelector("#edit-task-title");
+const editDescriptionInput = editTaskForm.querySelector(
+  "#edit-task-description"
+);
+const editDateInput = editTaskForm.querySelector("#edit-task-date");
+const cancelEditForm = document.querySelector(".cancel-edit-form");
 
 const addProjectBtn = document.querySelector(".add-project-btn");
 const projectForm = document.querySelector(".add-project-form");
@@ -33,6 +42,9 @@ const addTaskBtn = document.querySelector(".add-task-btn");
 const cancelTaskForm = document.querySelector(".cancel-task-form");
 const projectListContainer = document.querySelector(".project-list");
 const taskListContainer = document.querySelector(".task-list");
+
+// Global variables for edit functionality
+let currentEditingTask = null;
 
 // UI Update Function
 function updateUI() {
@@ -112,14 +124,112 @@ function handleProjectSelection(event) {
   updateUI();
 }
 
+function handleEditTask(projectName, todoIndex) {
+  const project = getProjectByName(projectName);
+  if (!project || !project.todos[todoIndex]) {
+    alert("Task not found!");
+    return;
+  }
+
+  const todo = project.todos[todoIndex];
+
+  // Store current editing task info
+  currentEditingTask = {
+    projectName,
+    todoIndex,
+  };
+
+  // Populate edit form with current values
+  editTaskInput.value = todo.title || "";
+  editDescriptionInput.value = todo.description || "";
+  editDateInput.value = todo.dueDate || "";
+
+  // Set priority radio button
+  const priorityRadio = editTaskForm.querySelector(
+    `input[name="edit-priority"][value="${todo.priority}"]`
+  );
+  if (priorityRadio) {
+    priorityRadio.checked = true;
+  }
+
+  // Hide other forms and show edit form
+  taskForm.classList.remove("show");
+  addTaskBtn.classList.remove("hide");
+  editTaskForm.classList.add("show");
+}
+
+function handleEditFormSubmit(event) {
+  event.preventDefault();
+
+  if (!currentEditingTask) {
+    alert("No task selected for editing!");
+    return;
+  }
+
+  const title = editTaskInput.value.trim();
+  const description = editDescriptionInput.value.trim();
+  const dueDate = editDateInput.value;
+  const priority = editTaskForm.querySelector(
+    "input[name='edit-priority']:checked"
+  )?.value;
+
+  if (!title || !priority) {
+    alert("Title and Priority must be filled!");
+    return;
+  }
+
+  const updateFields = {
+    title,
+    description,
+    dueDate,
+    priority,
+  };
+
+  const success = updateTodo(
+    currentEditingTask.projectName,
+    currentEditingTask.todoIndex,
+    updateFields
+  );
+
+  if (success) {
+    updateUI();
+
+    // Reset form and hide it
+    editTaskForm.reset();
+    editTaskForm.classList.remove("show");
+    currentEditingTask = null;
+  } else {
+    alert("Failed to update task!");
+  }
+}
+
+function cancelEditTask() {
+  editTaskForm.reset();
+  editTaskForm.classList.remove("show");
+  currentEditingTask = null;
+}
+
 function initialize() {
   // Event Listener
   projectForm.addEventListener("submit", handleProjectFormSubmit);
   taskForm.addEventListener("submit", handleTaskFormSubmit);
+  editTaskForm.addEventListener("submit", handleEditFormSubmit);
+  cancelEditForm.addEventListener("click", cancelEditTask);
   projectListContainer.addEventListener("click", handleProjectSelection);
 
-  // Unified delegation for delete, complete, and expand
+  // Unified delegation for delete, complete, edit, and expand
   taskListContainer.addEventListener("click", function (event) {
+    // Edit
+    if (event.target.classList.contains("edit-btn")) {
+      const taskItem = event.target.closest(".task-item");
+      if (!taskItem) return;
+      const projectName = taskItem.dataset.projectName;
+      const index = parseInt(taskItem.dataset.todoIndex, 10);
+      if (Number.isNaN(index)) return;
+      handleEditTask(projectName, index);
+      return;
+    }
+
     // Delete
     if (event.target.classList.contains("delete-btn")) {
       const taskItem = event.target.closest(".task-item");
@@ -173,6 +283,12 @@ function initialize() {
 
   // Initialize flatpickr
   flatpickr("#add-task-date", {
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+  });
+
+  flatpickr("#edit-task-date", {
     altInput: true,
     altFormat: "F j, Y",
     dateFormat: "Y-m-d",
