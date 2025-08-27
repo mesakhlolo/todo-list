@@ -33,7 +33,11 @@ function setActiveProjectName(name) {
 function getProjectByName(name) {
   if (name === "All") {
     const allTodos = projects.flatMap((project) =>
-      project.todos.map((todo) => ({ ...todo, projectName: project.name }))
+      project.todos.map((todo, index) => ({
+        ...todo,
+        projectName: project.name,
+        indexInProject: index,
+      }))
     );
     return { name: "All", todos: allTodos };
   }

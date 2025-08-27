@@ -45,9 +45,14 @@ function renderTodos(project) {
   const taskList = document.querySelector(".task-list");
   taskList.innerHTML = "";
 
-  project.todos.forEach(function (todo) {
+  project.todos.forEach(function (todo, idx) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("task-item");
+    // dataset to help identify deletion target
+    taskItem.dataset.projectName =
+      project.name === "All" ? todo.projectName : project.name;
+    taskItem.dataset.todoIndex =
+      project.name === "All" ? todo.indexInProject : idx.toString();
 
     const projectInfo =
       project.name === "All"

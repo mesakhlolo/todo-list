@@ -21,4 +21,19 @@ function addNewTodo(projectName, todo) {
   project.todos.push(todo);
 }
 
-export { createTodo, addNewTodo };
+// delete todo by index from a specific project
+function deleteTodo(projectName, index) {
+  const project = getProjectByName(projectName);
+  if (!project) {
+    console.error("Project not found!");
+    return false;
+  }
+  if (index < 0 || index >= project.todos.length) {
+    console.error("Invalid todo index!");
+    return false;
+  }
+  project.todos.splice(index, 1);
+  return true;
+}
+
+export { createTodo, addNewTodo, deleteTodo };

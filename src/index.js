@@ -10,7 +10,7 @@ import {
   setActiveProjectName,
   setProjects,
 } from "./modules/projectManager.js";
-import { addNewTodo, createTodo } from "./modules/todoManager.js";
+import { addNewTodo, createTodo, deleteTodo } from "./modules/todoManager.js";
 import { renderProjects, renderTodos } from "./modules/domRenderer.js";
 import { loadProjects, saveProjects } from "./modules/localStorage.js";
 
@@ -27,6 +27,7 @@ const cancelProjectForm = document.querySelector(".cancel-project-form");
 const addTaskBtn = document.querySelector(".add-task-btn");
 const cancelTaskForm = document.querySelector(".cancel-task-form");
 const projectListContainer = document.querySelector(".project-list");
+const taskListContainer = document.querySelector(".task-list");
 
 // UI Update Function
 function updateUI() {
@@ -112,6 +113,23 @@ function initialize() {
   taskForm.addEventListener("submit", handleTaskFormSubmit);
   projectListContainer.addEventListener("click", handleProjectSelection);
 
+  // delete button delegation
+  taskListContainer.addEventListener("click", function (event) {
+    if (event.target.classList.contains("delete-btn")) {
+      const taskItem = event.target.closest(".task-item");
+      if (!taskItem) return;
+      const projectName = taskItem.dataset.projectName;
+      const index = parseInt(taskItem.dataset.todoIndex, 10);
+      if (Number.isNaN(index)) return;
+      const confirmDelete = confirm("Delete this task?");
+      if (!confirmDelete) return;
+      const ok = deleteTodo(projectName, index);
+      if (ok) {
+        updateUI();
+      }
+    }
+  });
+
   // Initialize flatpickr
   flatpickr("#add-task-date", {
     altInput: true,
@@ -172,7 +190,8 @@ function initialize() {
   if (dataFromStorage && dataFromStorage.length > 0) {
     setProjects(dataFromStorage);
   } else {
-    saveProjects();
+    // ensure we persist initial state if none exists yet
+    saveProjects(getProjects());
   }
   setActiveProjectName("All");
   updateUI();
