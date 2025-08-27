@@ -193,42 +193,115 @@ header h1 {
 
 /* Task Item */
 .task-item {
-  background-color: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 1rem;
+  padding: 0;
   margin-bottom: 0.8rem;
+}
+
+/* Compact clickable summary row */
+.task-summary {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
 }
-
-.task-main {
-  flex: 1;
+.task-summary:hover {
+  background-color: #eef1f4;
 }
-
-.task-main input[type="checkbox"] {
-  margin-right: 0.8rem;
-  margin-bottom: 0.5rem;
+.task-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
 }
-
-.task-main label {
-  font-weight: bold;
-  font-size: 1rem;
+.task-title {
+  font-weight: 700;
   color: #2c3e50;
-  margin-bottom: 0.5rem;
-  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-title.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+.task-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.task-due {
+  font-size: 0.85rem;
+}
+.task-actions-inline {
+  display: inline-flex;
+  gap: 0.4rem;
 }
 
-.task-main p {
-  margin-bottom: 0.3rem;
-  font-size: 0.85rem;
-  color: #666;
+/* Tidy inline action buttons (summary row) */
+.task-actions-inline button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  border-radius: 999px; /* pill */
+  border: 1px solid transparent;
+  background: transparent;
+}
+.task-actions-inline .edit-btn {
+  color: #0d6efd;
+  border-color: rgba(13, 110, 253, 0.3);
+  background-color: rgba(13, 110, 253, 0.07);
+}
+.task-actions-inline .edit-btn:hover {
+  background-color: rgba(13, 110, 253, 0.15);
+  border-color: rgba(13, 110, 253, 0.45);
+}
+.task-actions-inline .delete-btn {
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.3);
+  background-color: rgba(220, 53, 69, 0.07);
+}
+.task-actions-inline .delete-btn:hover {
+  background-color: rgba(220, 53, 69, 0.15);
+  border-color: rgba(220, 53, 69, 0.45);
+}
+
+/* Small icons for better affordance */
+.task-actions-inline .edit-btn::before {
+  content: "✎";
+  font-size: 0.9em;
+}
+.task-actions-inline .delete-btn::before {
+  content: "🗑";
+  font-size: 0.9em;
+}
+
+/* Details section (hidden by default) */
+.task-details {
+  padding: 0 1rem 0.9rem 1rem;
+  border-top: 1px dashed #ddd;
+}
+.task-details p {
+  margin-top: 0.6rem;
+  color: #555;
+  font-size: 0.9rem;
 }
 
 .task-actions {
+  /* legacy class kept if used elsewhere */
   display: flex;
   gap: 0.5rem;
+  margin-top: 0.8rem;
 }
 
 .task-actions button {
@@ -363,6 +436,29 @@ header h1 {
   font-size: 0.8em;
   color: #555;
   margin-top: 5px;
+}
+
+/* Priority colors */
+/* Priority background for the entire task item */
+.priority-high {
+  background-color: #ffe3e3; /* light red */
+}
+.priority-medium {
+  background-color: #fff4e6; /* light yellow/orange */
+}
+.priority-low {
+  background-color: #e6fcf5; /* light green */
+}
+
+/* Keep due date text tinted too for clarity */
+.task-due.priority-high {
+  color: #e03131;
+}
+.task-due.priority-medium {
+  color: #f08c00;
+}
+.task-due.priority-low {
+  color: #2f9e44;
 }
 
 .project-selection-group {

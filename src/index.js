@@ -10,9 +10,14 @@ import {
   setActiveProjectName,
   setProjects,
 } from "./modules/projectManager.js";
-import { addNewTodo, createTodo, deleteTodo } from "./modules/todoManager.js";
 import { renderProjects, renderTodos } from "./modules/domRenderer.js";
 import { loadProjects, saveProjects } from "./modules/localStorage.js";
+import {
+  addNewTodo,
+  createTodo,
+  deleteTodo,
+  setTodoCompleted,
+} from "./modules/todoManager.js";
 
 // DOM Selections
 const taskForm = document.querySelector(".add-task-form");
@@ -113,8 +118,9 @@ function initialize() {
   taskForm.addEventListener("submit", handleTaskFormSubmit);
   projectListContainer.addEventListener("click", handleProjectSelection);
 
-  // delete button delegation
+  // Unified delegation for delete, complete, and expand
   taskListContainer.addEventListener("click", function (event) {
+    // Delete
     if (event.target.classList.contains("delete-btn")) {
       const taskItem = event.target.closest(".task-item");
       if (!taskItem) return;
@@ -124,10 +130,45 @@ function initialize() {
       const confirmDelete = confirm("Delete this task?");
       if (!confirmDelete) return;
       const ok = deleteTodo(projectName, index);
-      if (ok) {
-        updateUI();
-      }
+      if (ok) updateUI();
+      return;
     }
+
+    // Complete toggle
+    if (event.target.classList.contains("complete-checkbox")) {
+      const checkbox = event.target;
+      const taskItem = checkbox.closest(".task-item");
+      if (!taskItem) return;
+      const projectName = taskItem.dataset.projectName;
+      const index = parseInt(taskItem.dataset.todoIndex, 10);
+      if (Number.isNaN(index)) return;
+      if (setTodoCompleted(projectName, index, checkbox.checked)) updateUI();
+      event.stopPropagation();
+      return;
+    }
+
+    // Expand/collapse when clicking summary row (ignore action buttons)
+    if (event.target.closest(".edit-btn, .delete-btn")) return;
+    const summaryEl = event.target.closest(".task-summary");
+    if (summaryEl) {
+      const details = summaryEl.nextElementSibling;
+      const expanded = summaryEl.getAttribute("aria-expanded") === "true";
+      summaryEl.setAttribute("aria-expanded", (!expanded).toString());
+      if (details) details.hidden = expanded;
+      return;
+    }
+  });
+
+  // Keyboard accessibility for summary (Enter/Space)
+  taskListContainer.addEventListener("keydown", function (event) {
+    if (!event.target.classList.contains("task-summary")) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    const summaryEl = event.target;
+    const details = summaryEl.nextElementSibling;
+    const expanded = summaryEl.getAttribute("aria-expanded") === "true";
+    summaryEl.setAttribute("aria-expanded", (!expanded).toString());
+    if (details) details.hidden = expanded;
   });
 
   // Initialize flatpickr

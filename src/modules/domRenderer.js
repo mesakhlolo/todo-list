@@ -58,11 +58,23 @@ function renderTodos(project) {
   project.todos.forEach(function (todo, idx) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("task-item");
+
     // dataset to help identify deletion target
     taskItem.dataset.projectName =
       project.name === "All" ? todo.projectName : project.name;
     taskItem.dataset.todoIndex =
       project.name === "All" ? todo.indexInProject : idx.toString();
+
+    // priority class helpers
+    const prio = (todo.priority || "").toLowerCase();
+    if (prio === "high") taskItem.classList.add("priority-high");
+    else if (prio === "medium") taskItem.classList.add("priority-medium");
+    else if (prio === "low") taskItem.classList.add("priority-low");
+
+    const dueText =
+      todo.dueDate && String(todo.dueDate).trim() !== ""
+        ? `Due: ${todo.dueDate}`
+        : "No due date";
 
     const projectInfo =
       project.name === "All"
@@ -70,17 +82,33 @@ function renderTodos(project) {
         : "";
 
     taskItem.innerHTML = `
-      <div class="task-main">
-        <input type="checkbox" />
-        <label>${todo.title}</label>
-        <p>${todo.description}</p>
-        <p>Due: ${todo.dueDate}</p>
-        <p>Priority: ${todo.priority}</p>
-        ${projectInfo}
+      <div class="task-summary" role="button" tabindex="0" aria-expanded="false">
+        <span class="task-left">
+          <input type="checkbox" class="complete-checkbox" ${
+            todo.completed ? "checked" : ""
+          } aria-label="Mark completed"/>
+          <span class="task-title ${todo.completed ? "completed" : ""}">${
+      todo.title
+    }</span>
+        </span>
+        <span class="task-right">
+          <span class="task-due ${
+            prio ? `priority-${prio}` : ""
+          }">${dueText}</span>
+          <span class="task-actions-inline">
+            <button type="button" class="edit-btn" title="Edit">Edit</button>
+            <button type="button" class="delete-btn" title="Delete">Delete</button>
+          </span>
+        </span>
       </div>
-      <div class="task-actions">
-        <button type="button" class="edit-btn">Edit</button>
-        <button type="button" class="delete-btn">Delete</button>
+      <div class="task-details" hidden>
+        ${
+          todo.description ? `<p class="task-desc">${todo.description}</p>` : ""
+        }
+        <p class="task-priority"><strong>Priority:</strong> ${
+          todo.priority || "-"
+        }</p>
+        ${projectInfo}
       </div>
     `;
 

@@ -7,6 +7,7 @@ function createTodo(title, description, dueDate, priority) {
     description,
     dueDate,
     priority,
+    completed: false,
   };
 }
 
@@ -36,4 +37,39 @@ function deleteTodo(projectName, index) {
   return true;
 }
 
-export { createTodo, addNewTodo, deleteTodo };
+// update todo fields (title, description, dueDate, priority, completed?)
+function updateTodo(projectName, index, fields) {
+  const project = getProjectByName(projectName);
+  if (!project) {
+    console.error("Project not found!");
+    return false;
+  }
+  if (index < 0 || index >= project.todos.length) {
+    console.error("Invalid todo index!");
+    return false;
+  }
+  const todo = project.todos[index];
+  if (typeof fields.title === "string") todo.title = fields.title;
+  if (typeof fields.description === "string") todo.description = fields.description;
+  if (typeof fields.dueDate === "string") todo.dueDate = fields.dueDate;
+  if (typeof fields.priority === "string") todo.priority = fields.priority;
+  if (typeof fields.completed === "boolean") todo.completed = fields.completed; // optional
+  return true;
+}
+
+// set completed state on a todo by project and index
+function setTodoCompleted(projectName, index, completed) {
+  const project = getProjectByName(projectName);
+  if (!project) {
+    console.error("Project not found!");
+    return false;
+  }
+  if (index < 0 || index >= project.todos.length) {
+    console.error("Invalid todo index!");
+    return false;
+  }
+  project.todos[index].completed = Boolean(completed);
+  return true;
+}
+
+export { createTodo, addNewTodo, deleteTodo, updateTodo, setTodoCompleted };
