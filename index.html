@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  <script defer src="main.js"></script></head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>To Do List</h1>
+    </header>
+
+    <!-- Main -->
+    <main class="main-layout">
+      <!-- Sidebar -->
+      <div class="project-sidebar">
+        <h2>Projects</h2>
+        <ul class="project-list">
+          <li class="list-project" data-name="All">All Task</li>
+        </ul>
+        <button class="add-project-btn">+ Add New Project</button>
+        <!-- form add new project -->
+        <form class="add-project-form">
+          <label for="add-project-title">Project Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="add-project-title"
+            placeholder="Enter project title"
+            required
+            minlength="3"
+          />
+
+          <button type="submit">Add Project</button>
+          <button type="button" class="cancel-project-form">Cancel</button>
+        </form>
+      </div>
+
+      <!-- Content -->
+      <section class="content">
+        <h1 class="current-project-title">Default Project</h1>
+        <div class="task-list-section">
+          <ul class="task-list"></ul>
+        </div>
+        <button class="add-task-btn">+ Add New Task</button>
+
+        <!-- form add new todo -->
+        <form class="add-task-form">
+          <label for="add-task-title">Task Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="add-task-title"
+            placeholder="Enter task title"
+            required
+            minlength="3"
+          />
+
+          <label for="add-task-description">Description:</label>
+          <textarea
+            id="add-task-description"
+            name="description"
+            rows="3"
+          ></textarea>
+
+          <label for="add-task-date">Due Date:</label>
+          <input
+            type="text"
+            id="add-task-date"
+            name="date"
+            placeholder="Select a date"
+          />
+
+          <div class="form-group project-selection-group" style="display: none">
+            <label for="select-project">Select Project:</label>
+            <select id="select-project" name="select-project"></select>
+          </div>
+
+          <div>
+            <label>Priority:</label>
+
+            <input type="radio" id="low" name="priority" value="Low" required />
+            <label for="low">Low</label>
+
+            <input type="radio" id="medium" name="priority" value="Medium" />
+            <label for="medium">Medium</label>
+
+            <input type="radio" id="high" name="priority" value="High" />
+            <label for="high">High</label>
+          </div>
+
+          <button type="submit">Add Task</button>
+          <button type="button" class="cancel-task-form">Cancel</button>
+        </form>
+
+        <!-- form edit task -->
+        <form class="edit-task-form">
+          <h3>Edit Task</h3>
+          <label for="edit-task-title">Task Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="edit-task-title"
+            placeholder="Enter task title"
+            required
+            minlength="3"
+          />
+
+          <label for="edit-task-description">Description:</label>
+          <textarea
+            id="edit-task-description"
+            name="description"
+            rows="3"
+          ></textarea>
+
+          <label for="edit-task-date">Due Date:</label>
+          <input
+            type="text"
+            id="edit-task-date"
+            name="date"
+            placeholder="Select a date"
+          />
+
+          <div>
+            <label>Priority:</label>
+
+            <input
+              type="radio"
+              id="edit-low"
+              name="edit-priority"
+              value="Low"
+              required
+            />
+            <label for="edit-low">Low</label>
+
+            <input
+              type="radio"
+              id="edit-medium"
+              name="edit-priority"
+              value="Medium"
+            />
+            <label for="edit-medium">Medium</label>
+
+            <input
+              type="radio"
+              id="edit-high"
+              name="edit-priority"
+              value="High"
+            />
+            <label for="edit-high">High</label>
+          </div>
+
+          <button type="submit">Update Task</button>
+          <button type="button" class="cancel-edit-form">Cancel</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
