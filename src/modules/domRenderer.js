@@ -9,7 +9,13 @@ function renderProjects(projects, activeProjectName) {
   if (activeProjectName === "All") {
     allProjectsItem.classList.add("active");
   }
-  allProjectsItem.textContent = "All Tasks";
+  const totalCount = projects.reduce(function (sum, p) {
+    return sum + (Array.isArray(p.todos) ? p.todos.length : 0);
+  }, 0);
+  allProjectsItem.innerHTML = `
+    <span class="project-title">All Tasks</span>
+    <span class="project-badge">${totalCount}</span>
+  `;
   allProjectsItem.dataset.name = "All";
   projectsList.appendChild(allProjectsItem);
 
@@ -20,7 +26,11 @@ function renderProjects(projects, activeProjectName) {
     if (project.name === activeProjectName) {
       projectItem.classList.add("active");
     }
-    projectItem.textContent = project.name;
+    const count = Array.isArray(project.todos) ? project.todos.length : 0;
+    projectItem.innerHTML = `
+      <span class="project-title">${project.name}</span>
+      <span class="project-badge">${count}</span>
+    `;
     projectItem.dataset.name = project.name;
 
     projectsList.appendChild(projectItem);

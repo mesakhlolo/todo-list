@@ -58,6 +58,9 @@ header h1 {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .list-project:hover {
@@ -67,6 +70,26 @@ header h1 {
 .list-project.active {
   font-weight: bold;
   background-color: #e0e0e0;
+}
+
+.project-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .add-project-btn {

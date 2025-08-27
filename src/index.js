@@ -100,11 +100,11 @@ function handleTaskFormSubmit(event) {
 }
 
 function handleProjectSelection(event) {
-  if (event.target.classList.contains("list-project")) {
-    const newActiveProjectName = event.target.dataset.name;
-    setActiveProjectName(newActiveProjectName);
-    updateUI();
-  }
+  const li = event.target.closest(".list-project");
+  if (!li) return;
+  const newActiveProjectName = li.dataset.name;
+  setActiveProjectName(newActiveProjectName);
+  updateUI();
 }
 
 function initialize() {
