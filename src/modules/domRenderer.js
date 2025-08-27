@@ -20,9 +20,10 @@ function renderTodos(projectName) {
     document.querySelector(
       ".task-list"
     ).innerHTML = `<li>Select a project to view its task</li>`;
-    document.querySelector(
-      ".current-project-title"
-    ).textContent = `Unknown ${projectName.name}`;
+
+    document.querySelector(".current-project-title").textContent =
+      "No Project Selected";
+    return;
   }
 
   document.querySelector(
